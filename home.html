@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home - USMC PFT Calculator</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #d7e6d0;
+      margin: 0;
+    }
+    header,
+    footer {
+      background-color: #2e4b2e;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .calculator {
+      background: #436f43;
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>USMC PFT Calculator</h2>
+  </header>
+  <nav class="navbar navbar-expand-lg" style="background-color: #80c497;">
+    <div class="container-fluid">
+      <div class="navbar-nav">
+        <a class="nav-link" href="home.html">Home</a>
+        <a class="nav-link" href="about.html">About</a>
+        <a class="nav-link" href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <div class="row">
+      <!-- Left content with detailed info -->
+      <div class="col-lg-8">
+        <h3>Welcome to the USMC PFT Calculator</h3>
+        <p>
+          This Physical Fitness Test (PFT) calculator is designed to help
+          United States Marine Corps (USMC) candidates and active service
+          members quickly estimate their PFT scores based on the latest USMC
+          standards.
+        </p>
+
+        <h5>Purpose & Importance</h5>
+        <p>
+          The USMC PFT is a mandatory fitness assessment used to ensure Marines
+          maintain optimal physical readiness. It evaluates muscular strength,
+          core endurance, and cardiovascular fitness through three events:
+          pull-ups (or push-ups for some categories), crunches, and a 3-mile
+          run.
+        </p>
+
+        <h5>How to Use This Tool</h5>
+        <ul>
+          <li>Enter your age and gender to adjust scoring standards.</li>
+          <li>Input the number of pull-ups you performed.</li>
+          <li>Enter the count of crunches completed in 2 minutes.</li>
+          <li>Provide your 3-mile run time (minutes and seconds).</li>
+          <li>Click "Calculate" to get your estimated PFT score.</li>
+        </ul>
+
+        <h5>Why This Calculator Helps</h5>
+        <p>
+          Manually calculating PFT scores can be confusing due to age- and
+          gender-based scoring tables. This tool simplifies the process,
+          provides instant feedback, and helps you track fitness progress over
+          time. Use it to plan your training and meet USMC physical readiness
+          goals.
+        </p>
+      </div>
+
+      <!-- Right content with the calculator -->
+      <div class="col-lg-4">
+        <div class="calculator">
+          <h3>USMC PFT Calculator</h3>
+          <label for="gender">Gender:</label>
+          <select id="gender" class="form-select mb-2">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+
+          <label for="age">Age:</label>
+          <input
+            type="number"
+            id="age"
+            placeholder="0"
+            min="0"
+            class="form-control mb-2"
+          />
+
+          <label for="pullups">Pull Ups:</label>
+          <input
+            type="number"
+            id="pullups"
+            placeholder="0"
+            min="0"
+            class="form-control mb-2"
+          />
+
+          <label for="crunches">Crunches:</label>
+          <input
+            type="number"
+            id="crunches"
+            placeholder="0"
+            min="0"
+            class="form-control mb-2"
+          />
+
+          <label>3 Mile Run:</label>
+          <div class="input-group mb-2">
+            <input
+              type="number"
+              id="minutes"
+              placeholder="min"
+              min="0"
+              class="form-control"
+            />
+            <input
+              type="number"
+              id="seconds"
+              placeholder="sec"
+              min="0"
+              max="59"
+              class="form-control"
+            />
+          </div>
+
+          <button onclick="calculatePFT()" class="btn btn-success w-100">
+            Calculate
+          </button>
+
+          <p id="result" class="mt-2"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 USMC PFT Calculator. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function calculatePFT() {
+      const gender = document.getElementById("gender").value;
+      const age = parseInt(document.getElementById("age").value);
+      const pullups = parseInt(document.getElementById("pullups").value);
+      const crunches = parseInt(document.getElementById("crunches").value);
+      const minutes = parseInt(document.getElementById("minutes").value);
+      const seconds = parseInt(document.getElementById("seconds").value);
+
+      if (
+        isNaN(age) ||
+        isNaN(pullups) ||
+        isNaN(crunches) ||
+        isNaN(minutes) ||
+        isNaN(seconds)
+      ) {
+        document.getElementById("result").innerText =
+          "Please fill all fields correctly.";
+        return;
+      }
+
+      const runTime = minutes * 60 + seconds;
+
+      // Simple scoring formula (for demo purposes)
+      const score = pullups * 5 + crunches * 2 + Math.max(100 - runTime / 10, 0);
+
+      document.getElementById(
+        "result"
+      ).innerText = `Estimated PFT Score: ${Math.round(score)}`;
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
